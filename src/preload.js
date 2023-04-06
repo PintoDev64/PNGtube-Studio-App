@@ -4,9 +4,14 @@ function EventWindow(typeEvent = 'minimize' || 'close' || 'restore') {
     ipcRenderer.send(typeEvent);
 };
 
+function appConfig() {
+    return ipcRenderer.sendSync('getPublicData');
+}
+
 contextBridge.exposeInMainWorld(
-    'admintools',
+    'pngtubeAPI',
     {
-        EventWindow
+        EventWindow,
+        appConfig
     }
 );

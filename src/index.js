@@ -10,6 +10,7 @@ if (require('electron-squirrel-startup')) {
 
 // Imports
 const { InitProcess } = require('./init');
+const { public } = require('./api/shared/public')
 
 // Definitions
 const { __Init__ } = InitProcess();
@@ -72,3 +73,6 @@ ipcMain.on('minimize', () => {
 ipcMain.on('close', () => {
   app.quit();
 });
+
+// Expose API
+public(ipcMain)
