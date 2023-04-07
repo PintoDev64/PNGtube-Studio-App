@@ -1,5 +1,5 @@
 // Node Modules
-const { mkdirSync, writeFileSync, existsSync } = require("node:fs");
+const { mkdirSync, writeFileSync, existsSync, copyFileSync, readdirSync } = require("node:fs");
 const { homedir } = require("node:os");
 const { join } = require("node:path");
 
@@ -37,6 +37,7 @@ function InitProcess() {
             modelURL: ''
         }
     ];
+    let resources = readdirSync(join(__dirname, '\\resources'));
     let pathsConfig = [
         {
             data: join(homedir(), 'AppData\\Roaming\\PNGtubeSettings')
@@ -77,10 +78,21 @@ function InitProcess() {
             );
         }
     }
+    function CreateResources() {
+        for (let file of resources) {
+            if (!existsSync(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Resources', file))) {
+                copyFileSync(
+                    join(__dirname, '\\resources', file),
+                    join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Resources', file)
+                );
+            }
+        }
+    }
     function __Init__() {
         CreateConfigDirectories();
         CreateConfigBase();
         CreateConfigModels();
+        CreateResources();
     }
     return {
         __Init__

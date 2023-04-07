@@ -6,12 +6,17 @@ function EventWindow(typeEvent = 'minimize' || 'close' || 'restore') {
 
 function appConfig() {
     return ipcRenderer.sendSync('getPublicData');
-}
+};
+
+function appResources() {
+    return ipcRenderer.sendSync('getPublicResources');
+};
 
 contextBridge.exposeInMainWorld(
     'pngtubeAPI',
     {
         EventWindow,
-        appConfig
+        appConfig,
+        appResources
     }
 );

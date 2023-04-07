@@ -1,5 +1,5 @@
 // Imports
-const { getGlobalData } = require('../functions');
+const { getGlobalData, getGlobalResources } = require('../functions');
 
 function public(ipcMain) {
     ipcMain.on('getPublicData', (event) => {
@@ -9,6 +9,10 @@ function public(ipcMain) {
             wallpaperBackground: wallpaper,
             typeBackground: type
         }
+    });
+    ipcMain.on('getPublicResources', (event) => {
+        const files = getGlobalResources();
+        event.returnValue = files
     })
 }
 

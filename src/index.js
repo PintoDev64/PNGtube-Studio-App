@@ -22,8 +22,12 @@ __Init__()
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 720,
+    minWidth: 1200,
+    minHeight: 720,
+    titleBarStyle: 'hidden',
+    frame: false,
     webPreferences: {
       contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline';",
       preload: join(__dirname, 'preload.js'),
