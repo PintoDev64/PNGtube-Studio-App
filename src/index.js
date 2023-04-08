@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const { join } = require('path');
 const electron_dev = require('electron-is-dev');
-require('dotenv').config()
+require('dotenv').config();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {

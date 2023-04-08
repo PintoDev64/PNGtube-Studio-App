@@ -1,10 +1,12 @@
 // Node Modules
-const { readdirSync } = require('node:fs');
+const { readdirSync, writeFileSync } = require('node:fs');
 const { homedir } = require('node:os');
 const { join } = require('node:path');
 
 // Resources
-const { appBackground, wallpapersPath } = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'));
+const currentConfig = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'));
+
+const { appBackground, wallpapersPath } = currentConfig;
 
 function getGlobalData() {
     const { type, colorBackground, wallpaper } = appBackground;
@@ -26,8 +28,22 @@ function getGlobalResources() {
 
     return responce
 }
+function setConfig({ action, value }) {
+
+    let functions = {
+        type: () => {
+            writeFileSync(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'), JSON.stringify({
+                ...currentConfig,
+                appBackground: value
+            }))
+        }
+    }
+
+    functions[action];
+}
 
 module.exports = {
     getGlobalData,
-    getGlobalResources
+    getGlobalResources,
+    setConfig
 }
