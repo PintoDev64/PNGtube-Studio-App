@@ -8,16 +8,18 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-// Imports
 const { InitProcess } = require('./init');
-const { public } = require('./api/shared/public')
 
 // Definitions
 const { __Init__ } = InitProcess();
-let mainWindow;
 
 // Inits
 __Init__()
+
+// Imports
+const { public } = require('./api/shared/public')
+
+let mainWindow;
 
 const createWindow = () => {
   // Create the browser window.
@@ -42,16 +44,8 @@ const createWindow = () => {
 };
 
 app.on('ready', () => {
+  // Create Window
   createWindow();
-  /* let tray = new Tray('C:/Users/JoanCardozo/Descargas/337908400_200451969349133_5922490492596232774_n.jpg')
-  const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item1', type: 'normal', icon: 'C:/Users/JoanCardozo/Descargas/FsXcvZRaEAAXKiz.jpg' },
-    { label: 'Item2', type: 'radio' },
-    { label: 'Item3', type: 'radio', checked: true },
-    { label: 'Item4', type: 'radio' }
-  ])
-  tray.setToolTip('This is my application.')
-  tray.setContextMenu(contextMenu) */
 });
 
 app.on('window-all-closed', () => {

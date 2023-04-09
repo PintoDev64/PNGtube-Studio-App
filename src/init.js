@@ -13,19 +13,13 @@ function InitProcess() {
         },
         appConfig: {
             hardwareAcceleration: true,
-            trayMenu: true,
-            menuHideStyle: 'None', // None | Hover
+            trayMenu: true
         },
         appBackground: {
-            visible: true,
             type: 'Color', // Color | Image
             colorBackground: '#00ff00', // Hex
-            wallpaper: 'Default' // Wallpaper File Name
-        },
-        appMenus: {
-            modelOptionsHide: true,
-            modelSelectHide: true,
-            windowOptionsHide: true
+            wallpaper: 'Default', // Wallpaper File Name
+            brightness: 100
         }
     };
     let modelsConfig = [

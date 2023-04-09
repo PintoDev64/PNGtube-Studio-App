@@ -12,11 +12,26 @@ function appResources() {
     return ipcRenderer.sendSync('getPublicResources');
 };
 
+function getWallpapers() {
+    return ipcRenderer.sendSync('getWallpapers');
+};
+
+function setConfig(configObject) {
+    return ipcRenderer.send('setConfig', configObject);
+};
+
+function compareAppConfig() {
+    return ipcRenderer.sendSync('compareAppConfig');
+};
+
 contextBridge.exposeInMainWorld(
     'pngtubeAPI',
     {
         EventWindow,
         appConfig,
-        appResources
+        appResources,
+        setConfig,
+        compareAppConfig,
+        getWallpapers
     }
 );
