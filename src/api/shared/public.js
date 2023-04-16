@@ -10,7 +10,7 @@ function public(ipcMain) {
             wallpaperBackground: wallpaper,
             typeBackground: type,
             wallpaperName: name,
-            brightness
+            brightness: brightness
         }
     });
     ipcMain.on('getPublicResources', (event) => {
