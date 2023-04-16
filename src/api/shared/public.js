@@ -1,5 +1,5 @@
 // Imports
-const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers } = require('../functions');
+const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig } = require('../functions');
 
 function public(ipcMain) {
     // Get Content
@@ -20,6 +20,10 @@ function public(ipcMain) {
     ipcMain.on('getWallpapers', (event) => {
         const wallpapers = getGlobalWallpapers();
         event.returnValue = wallpapers;
+    });
+    ipcMain.on('getAllData', (event) => {
+        const configFileJSON = getAllConfig();
+        event.returnValue = configFileJSON;
     });
     // Set Content
     ipcMain.on('setConfig', (event, data) => {

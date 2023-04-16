@@ -30,13 +30,11 @@ function getGlobalResources() {
 
     return responce
 };
-function setConfig({ value }) {
+function setConfig(value) {
+    console.log(value);
     writeFile(
         join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'),
-        JSON.stringify({
-            ...currentConfig,
-            appBackground: value
-        }, null, 4),
+        JSON.stringify(value, null, 4),
         { encoding: 'utf-8' },
         () => {
             console.log('archivo modificado');
@@ -60,19 +58,23 @@ function getGlobalWallpapers() {
         { encoding: 'utf-8' }
     );
     let responce = [];
-    walls.map( file => {
-         responce.push(file.split('.png')[0]);
+    walls.map(file => {
+        responce.push(file.split('.png')[0]);
     })
 
     return {
         wallpapers: responce
     }
 };
+function getAllConfig() {
+    return currentConfig;
+}
 
 module.exports = {
     getGlobalData,
     getGlobalResources,
     setConfig,
     compareConfig,
+    getAllConfig,
     getGlobalWallpapers
 }
