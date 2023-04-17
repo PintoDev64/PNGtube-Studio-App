@@ -4,13 +4,16 @@ const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWa
 function public(ipcMain) {
     // Get Content
     ipcMain.on('getPublicData', (event) => {
-        const { colorBackground, type, wallpaper, name, brightness} = getGlobalData();
+        const { colorBackground, type, wallpaper, name, brightness, hardwareAcceleration, trayMenu, wallpapersPath } = getGlobalData();
         event.returnValue = {
             colorBackground: colorBackground,
             wallpaperBackground: wallpaper,
             typeBackground: type,
             wallpaperName: name,
-            brightness: brightness
+            brightness: brightness,
+            hardwareAcceleration,
+            trayMenu,
+            wallpapersPath
         }
     });
     ipcMain.on('getPublicResources', (event) => {

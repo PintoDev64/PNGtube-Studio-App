@@ -1,22 +1,25 @@
 // Node Modules
-const { readdirSync, writeFileSync, writeFile } = require('node:fs');
+const { readdirSync, writeFileSync } = require('node:fs');
 const { homedir } = require('node:os');
 const { join } = require('node:path');
 
 // Resources
 const currentConfig = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'));
 
-const { appBackground, wallpapersPath } = currentConfig;
+const { appBackground, wallpapersPath, appConfig } = currentConfig;
 
 function getGlobalData() {
     const { type, colorBackground, wallpaper, brightness } = appBackground;
+    const { hardwareAcceleration, trayMenu } = appConfig;
 
     return {
         type: type,
         colorBackground: colorBackground,
-        wallpaper: join(wallpapersPath, `${wallpaper}.png`),
+        wallpaper: wallpapersPath,
         name: wallpaper,
-        brightness
+        brightness,
+        hardwareAcceleration,
+        trayMenu
     }
 };
 function getGlobalResources() {
@@ -31,14 +34,10 @@ function getGlobalResources() {
     return responce
 };
 function setConfig(value) {
-    console.log(value);
-    writeFile(
+    writeFileSync(
         join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'),
         JSON.stringify(value, null, 4),
-        { encoding: 'utf-8' },
-        () => {
-            console.log('archivo modificado');
-        }
+        { encoding: 'utf-8' }
     )
 };
 function compareConfig() {
