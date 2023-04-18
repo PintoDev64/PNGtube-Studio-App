@@ -24,6 +24,18 @@ function setConfig(configObject) {
 function compareAppConfig() {
     return ipcRenderer.sendSync('compareAppConfig');
 };
+function uploadBackground(wallpaper, name) {
+    ipcRenderer.send('uploadWallpaper', {
+        wallpaper,
+        name
+    });
+};
+function getModels() {
+    return ipcRenderer.sendSync('getModelsSafe');
+};
+function getSelectModel() {
+    // Function Content
+};
 
 contextBridge.exposeInMainWorld(
     'pngtubeAPI',
@@ -34,6 +46,8 @@ contextBridge.exposeInMainWorld(
         setConfig,
         compareAppConfig,
         getWallpapers,
-        getAllConfig
+        getAllConfig,
+        uploadBackground,
+        getModels
     }
 );

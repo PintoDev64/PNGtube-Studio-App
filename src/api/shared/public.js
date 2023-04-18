@@ -1,5 +1,5 @@
 // Imports
-const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig } = require('../functions');
+const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData } = require('../functions');
 
 function public(ipcMain) {
     // Get Content
@@ -28,6 +28,10 @@ function public(ipcMain) {
         const configFileJSON = getAllConfig();
         event.returnValue = configFileJSON;
     });
+    ipcMain.on('getModelsSafe', (event) => {
+        const Data = getModelsData();
+        event.returnValue = Data;
+    });
     // Set Content
     ipcMain.on('setConfig', (event, data) => {
         setConfig(data);
@@ -35,7 +39,10 @@ function public(ipcMain) {
     // Compares
     ipcMain.on('compareAppConfig', (event) => {
         event.returnValue = compareConfig();
-    })
+    });
+    ipcMain.on('uploadWallpaper', (event, { wallpaper, name }) => {
+        uploadWallpaper(wallpaper, name);
+    });
 }
 
 module.exports = {

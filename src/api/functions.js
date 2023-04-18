@@ -1,12 +1,12 @@
 // Node Modules
-const { readdirSync, writeFileSync } = require('node:fs');
+const { readdirSync, writeFileSync, copyFileSync } = require('node:fs');
 const { homedir } = require('node:os');
 const { join } = require('node:path');
 
 // Resources
 const currentConfig = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'));
 
-const { appBackground, wallpapersPath, appConfig } = currentConfig;
+const { appBackground, wallpapersPath, appConfig, userModel } = currentConfig;
 
 function getGlobalData() {
     const { type, colorBackground, wallpaper, brightness } = appBackground;
@@ -20,6 +20,14 @@ function getGlobalData() {
         brightness,
         hardwareAcceleration,
         trayMenu
+    }
+};
+function getModelsData() {
+    const Models = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Models\\models.json'))
+
+    return {
+        userModel,
+        Models
     }
 };
 function getGlobalResources() {
@@ -65,9 +73,15 @@ function getGlobalWallpapers() {
         wallpapers: responce
     }
 };
+function uploadWallpaper(URLImage, name) {
+    copyFileSync(
+        URLImage,
+        join(wallpapersPath, name),
+    )
+}
 function getAllConfig() {
     return currentConfig;
-}
+};
 
 module.exports = {
     getGlobalData,
@@ -75,5 +89,7 @@ module.exports = {
     setConfig,
     compareConfig,
     getAllConfig,
-    getGlobalWallpapers
+    getGlobalWallpapers,
+    uploadWallpaper,
+    getModelsData
 }
