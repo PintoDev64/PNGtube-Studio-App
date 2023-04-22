@@ -1,7 +1,7 @@
 // Imports
 const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData } = require('../functions');
 
-function public(ipcMain) {
+function public(ipcMain, window) {
     // Get Content
     ipcMain.on('getPublicData', (event) => {
         const { colorBackground, type, wallpaper, name, brightness, hardwareAcceleration, trayMenu, wallpapersPath } = getGlobalData();
@@ -19,6 +19,10 @@ function public(ipcMain) {
     ipcMain.on('getPublicResources', (event) => {
         const files = getGlobalResources();
         event.returnValue = files;
+    });
+    ipcMain.on('FullScreenMode', (event) => {
+        const stateWindow = window.isFullScreen();
+        event.returnValue = stateWindow;
     });
     ipcMain.on('getWallpapers', (event) => {
         const wallpapers = getGlobalWallpapers();

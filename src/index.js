@@ -73,4 +73,4 @@ ipcMain.on('close', () => {
 });
 
 // Expose API
-public(ipcMain)
+public(ipcMain, mainWindow)
