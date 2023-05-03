@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const { join } = require('path');
+const { homedir } = require('os');
 const electron_dev = require('electron-is-dev');
 require('dotenv').config();
 
@@ -17,7 +18,7 @@ const { __Init__ } = InitProcess();
 __Init__()
 
 // Imports
-const { public } = require('./api/shared/public')
+const { public } = require('./api/shared/public');
 
 let mainWindow;
 
@@ -31,8 +32,9 @@ const createWindow = () => {
     titleBarStyle: 'hidden',
     frame: false,
     webPreferences: {
-      contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline';",
+      zoomFactor: 1,
       preload: join(__dirname, 'preload.js'),
+      contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline';"
     },
   });
 
@@ -43,7 +45,7 @@ const createWindow = () => {
   }
 };
 
-app.on('ready', () => {
+app.on('ready', async () => {
   // Create Window
   createWindow();
 });
