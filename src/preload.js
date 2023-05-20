@@ -33,6 +33,11 @@ function uploadBackground(wallpaper, name) {
 function getModels() {
     return ipcRenderer.sendSync('getModelsSafe');
 };
+function data(route) {
+    return ipcRenderer.sendSync('dataSource', {
+        route
+    });
+};
 function isFullscreenMode() {
     return ipcRenderer.sendSync('FullScreenMode');
 };
@@ -49,6 +54,7 @@ contextBridge.exposeInMainWorld(
         getAllConfig,
         uploadBackground,
         getModels,
-        isFullscreenMode
+        isFullscreenMode,
+        data
     }
 );

@@ -1,5 +1,5 @@
 // Imports
-const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData } = require('../functions');
+const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData, getDataModel } = require('../functions');
 
 function public(ipcMain, window) {
     // Get Content
@@ -34,6 +34,12 @@ function public(ipcMain, window) {
     });
     ipcMain.on('getModelsSafe', (event) => {
         const Data = getModelsData();
+        event.returnValue = Data;
+    });
+    ipcMain.on('dataSource', (event, { route }) => {
+        console.log(route);
+        const Data = getDataModel(route);
+        console.log(Data.responceDataModel.SpritesDefs);
         event.returnValue = Data;
     });
     // Set Content

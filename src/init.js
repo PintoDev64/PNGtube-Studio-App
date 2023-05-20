@@ -8,6 +8,7 @@ function InitProcess() {
         imagesPath: `${join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Resources')}`,
         wallpapersPath: `${join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Wallpapers')}`,
         userModel: 'Ookami',
+        models: `${join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Models')}`,
         appConfig: {
             hardwareAcceleration: true,
             trayMenu: true
@@ -21,13 +22,17 @@ function InitProcess() {
     };
     let modelsConfig = [
         {
-            Ookami: {
-                modelId: 1,
-                modelName: 'Ookami',
-                modelOwner: 'PintoGamer64',
-                modelDate: new Date(),
-                modelURL: ''
-            }
+            modelId: 1,
+            modelName: "Ookami",
+            modelOwner: "PintoGamer64",
+            modelDate: "2023-03-15T05:00:00.000Z",
+            modelImage: "C:\\Users\\JoanCardozo\\AppData\\Roaming\\PNGtubeSettings\\Models\\Ookami\\Ookami.png",
+            modelData: {
+                default: [],
+                States: [
+                ]
+            },
+            modelURL: ""
         }
     ];
     let resources = readdirSync(join(__dirname, '\\resources'));

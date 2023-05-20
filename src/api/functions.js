@@ -6,7 +6,7 @@ const { join } = require('node:path');
 // Resources
 const currentConfig = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\settings.json'));
 
-const { appBackground, wallpapersPath, appConfig, userModel } = currentConfig;
+const { appBackground, wallpapersPath, appConfig, userModel, routeModels } = currentConfig;
 
 function getGlobalData() {
     const { type, colorBackground, wallpaper, brightness } = appBackground;
@@ -23,13 +23,21 @@ function getGlobalData() {
     }
 };
 function getModelsData() {
-    const Models = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Models\\models.json'))
+    const Models = require(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Models\\models.json'));
 
     return {
         userModel,
-        Models
+        Models,
+        routeModels
     }
 };
+function getDataModel(route) {
+    const responceDataModel = require(`${route}`);
+
+    return {
+        responceDataModel
+    }
+}
 function getGlobalResources() {
     const files = readdirSync(join(homedir(), 'AppData\\Roaming\\PNGtubeSettings\\Resources'));
 
@@ -91,5 +99,6 @@ module.exports = {
     getAllConfig,
     getGlobalWallpapers,
     uploadWallpaper,
-    getModelsData
+    getModelsData,
+    getDataModel
 }
