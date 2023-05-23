@@ -38,9 +38,14 @@ function data(route) {
         route
     });
 };
-function isFullscreenMode() {
-    return ipcRenderer.sendSync('FullScreenMode');
+function AppBackgrounds() {
+    return ipcRenderer.sendSync('AppBackgrounds');
 };
+function removeBackground(id) {
+    ipcRenderer.send('removeBackground', {
+        id
+    });
+}
 
 contextBridge.exposeInMainWorld(
     'pngtubeAPI',
@@ -54,7 +59,8 @@ contextBridge.exposeInMainWorld(
         getAllConfig,
         uploadBackground,
         getModels,
-        isFullscreenMode,
+        removeBackground,
+        AppBackgrounds,
         data
     }
 );

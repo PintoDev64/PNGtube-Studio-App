@@ -1,5 +1,5 @@
 // Node Modules
-const { readdirSync, writeFileSync, copyFileSync } = require('node:fs');
+const { readdirSync, writeFileSync, copyFileSync, unlinkSync } = require('node:fs');
 const { homedir } = require('node:os');
 const { join } = require('node:path');
 
@@ -31,6 +31,18 @@ function getModelsData() {
         routeModels
     }
 };
+function removeBackgroundDir(idName) {
+    const idNameFile = `${wallpapersPath}\\${idName}.png`;
+    const AllWallpapersFecth = readdirSync(
+        wallpapersPath,
+        { encoding: 'utf-8' }
+    )
+    AllWallpapersFecth.forEach(wallpaperName => {
+        if (wallpaperName === `${idName}.png`) {
+            unlinkSync(idNameFile)
+        }
+    })
+}
 function getDataModel(route) {
     const responceDataModel = require(`${route}`);
 
@@ -90,6 +102,26 @@ function uploadWallpaper(URLImage, name) {
 function getAllConfig() {
     return currentConfig;
 };
+function AllWallpapersData() {
+    let counter = 0;
+    let responce = [];
+    const AllWallpapers = readdirSync(
+        wallpapersPath,
+        { encoding: 'utf-8' }
+    );
+
+    AllWallpapers.map(file => {
+        responce.push({
+            id: counter,
+            name: file.split('.png')[0],
+            definition: `${wallpapersPath}\\${file}`,
+            preview: `${wallpapersPath}\\${file}`
+        });
+        counter++
+    })
+
+    return responce
+}
 
 module.exports = {
     getGlobalData,
@@ -100,5 +132,7 @@ module.exports = {
     getGlobalWallpapers,
     uploadWallpaper,
     getModelsData,
-    getDataModel
+    getDataModel,
+    AllWallpapersData,
+    removeBackgroundDir
 }

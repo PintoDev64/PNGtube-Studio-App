@@ -1,5 +1,5 @@
 // Imports
-const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData, getDataModel } = require('../functions');
+const { getGlobalData, getGlobalResources, setConfig, compareConfig, getGlobalWallpapers, getAllConfig, uploadWallpaper, getModelsData, getDataModel, AllWallpapersData, removeBackgroundDir } = require('../functions');
 
 function public(ipcMain, window) {
     // Get Content
@@ -20,9 +20,9 @@ function public(ipcMain, window) {
         const files = getGlobalResources();
         event.returnValue = files;
     });
-    ipcMain.on('FullScreenMode', (event) => {
-        const stateWindow = window.isFullScreen();
-        event.returnValue = stateWindow;
+    ipcMain.on('AppBackgrounds', (event) => {
+        const backgroundElements = AllWallpapersData();
+        event.returnValue = backgroundElements;
     });
     ipcMain.on('getWallpapers', (event) => {
         const wallpapers = getGlobalWallpapers();
@@ -41,6 +41,10 @@ function public(ipcMain, window) {
         const Data = getDataModel(route);
         console.log(Data.responceDataModel.SpritesDefs);
         event.returnValue = Data;
+    });
+    ipcMain.on('removeBackground', (event, { id }) => {
+        console.log(id);
+        removeBackgroundDir(id)
     });
     // Set Content
     ipcMain.on('setConfig', (event, data) => {
